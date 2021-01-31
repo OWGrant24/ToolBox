@@ -23,6 +23,7 @@
 .idea
 Thumbs.db
 other/
+out/
 target/
 
 # Default ignored files

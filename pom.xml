@@ -11,16 +11,16 @@
     <name>ToolBox</name>
     <!-- Не работающий репозиторий -->
     <repositories>
-       <repository>
-           <id>JetBrains</id>
-           <url>https://dl.bintray.com/jetbrains/intellij-third-party-dependencies/</url>
-       </repository>
+        <repository>
+            <id>JetBrains</id>
+            <url>https://dl.bintray.com/jetbrains/intellij-third-party-dependencies/</url>
+        </repository>
     </repositories>
 
     <properties>
-        <maven.compiler.source>13</maven.compiler.source>
-        <maven.compiler.target>13</maven.compiler.target>
-        <jdk.version>13</jdk.version>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
+        <jdk.version>11</jdk.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
