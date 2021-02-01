@@ -105,7 +105,7 @@ public class View extends JFrame {
         // Приложение завершит свою работу при закрытии GUI интерфейса
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setLocationRelativeTo(null); // Отображение по центру
-        setTitle("Пакетное переименование файлов v0.3c");
+        setTitle("Пакетное переименование файлов v0.4");
         setResizable(false);
         // Устанавливаем иконку
         try {

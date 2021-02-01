@@ -16,29 +16,17 @@
         <children>
           <component id="94756" class="javax.swing.JLabel">
             <constraints>
-              <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
               <gridbag weightx="0.0" weighty="0.0"/>
             </constraints>
             <properties>
               <text value="Список изменений"/>
             </properties>
           </component>
-          <hspacer id="7d58">
-            <constraints>
-              <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-              <gridbag weightx="0.0" weighty="0.0"/>
-            </constraints>
-          </hspacer>
-          <vspacer id="f153e">
-            <constraints>
-              <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
-              <gridbag weightx="0.0" weighty="0.0"/>
-            </constraints>
-          </vspacer>
           <scrollpane id="403e4">
             <constraints>
-              <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
-              <gridbag weightx="0.0" weighty="0.0"/>
+              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+              <gridbag top="5" left="5" bottom="5" right="5" weightx="0.0" weighty="0.0"/>
             </constraints>
             <properties>
               <preferredSize width="450" height="230"/>
@@ -51,18 +39,12 @@
                   <background color="-1644826"/>
                   <editable value="false"/>
                   <font size="12"/>
-                  <text value="12.01.2021 Начата разработка данного приложения&#10;19.01.2021 Скомпилирована первая Alpha версия приложения 0.1 &#10;24.01.2021 Скомпилирована Toolbox 0.2&#10;           Исправление ошибок, полный рефакторинг &#10;29.01.2021 Скомпилирована ToolBox 0.3c&#10;           Новые функции (Добавить), исправление ошибок&#10;          "/>
+                  <text value="12.01.2021 Начата разработка данного приложения&#10;19.01.2021 Скомпилирована первая Alpha версия приложения 0.1 &#10;24.01.2021 Скомпилирована Toolbox 0.2&#10;           Исправление ошибок, полный рефакторинг &#10;29.01.2021 Скомпилирована ToolBox 0.3c&#10;           Новые функции (Добавить), исправление ошибок&#10;01.02.2021 Скомпилирована ToolBox 0.4&#10;           Подправлен подсчёт кол-ва переименованных файлов"/>
                   <visible value="true"/>
                 </properties>
               </component>
             </children>
           </scrollpane>
-          <hspacer id="9941a">
-            <constraints>
-              <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-              <gridbag weightx="0.0" weighty="0.0"/>
-            </constraints>
-          </hspacer>
         </children>
       </grid>
     </children>

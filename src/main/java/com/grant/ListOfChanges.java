@@ -64,43 +64,25 @@ public class ListOfChanges extends JFrame {
         label1.setText("Список изменений");
         GridBagConstraints gbc;
         gbc = new GridBagConstraints();
-        gbc.gridx = 1;
+        gbc.gridx = 0;
         gbc.gridy = 0;
-        gbc.anchor = GridBagConstraints.WEST;
         panel1.add(label1, gbc);
-        final JPanel spacer1 = new JPanel();
-        gbc = new GridBagConstraints();
-        gbc.gridx = 2;
-        gbc.gridy = 0;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        panel1.add(spacer1, gbc);
-        final JPanel spacer2 = new JPanel();
-        gbc = new GridBagConstraints();
-        gbc.gridx = 1;
-        gbc.gridy = 1;
-        gbc.fill = GridBagConstraints.VERTICAL;
-        panel1.add(spacer2, gbc);
         final JScrollPane scrollPane1 = new JScrollPane();
         scrollPane1.setPreferredSize(new Dimension(450, 230));
         gbc = new GridBagConstraints();
-        gbc.gridx = 1;
-        gbc.gridy = 2;
+        gbc.gridx = 0;
+        gbc.gridy = 1;
         gbc.fill = GridBagConstraints.BOTH;
+        gbc.insets = new Insets(5, 5, 5, 5);
         panel1.add(scrollPane1, gbc);
         textChanges = new JTextArea();
         textChanges.setBackground(new Color(-1644826));
         textChanges.setEditable(false);
         Font textChangesFont = this.$$$getFont$$$(null, -1, 12, textChanges.getFont());
         if (textChangesFont != null) textChanges.setFont(textChangesFont);
-        textChanges.setText("12.01.2021 Начата разработка данного приложения\n19.01.2021 Скомпилирована первая Alpha версия приложения 0.1 \n24.01.2021 Скомпилирована Toolbox 0.2\n           Исправление ошибок, полный рефакторинг \n29.01.2021 Скомпилирована ToolBox 0.3c\n           Новые функции (Добавить), исправление ошибок\n          ");
+        textChanges.setText("12.01.2021 Начата разработка данного приложения\n19.01.2021 Скомпилирована первая Alpha версия приложения 0.1 \n24.01.2021 Скомпилирована Toolbox 0.2\n           Исправление ошибок, полный рефакторинг \n29.01.2021 Скомпилирована ToolBox 0.3c\n           Новые функции (Добавить), исправление ошибок\n01.02.2021 Скомпилирована ToolBox 0.4\n           Подправлен подсчёт кол-ва переименованных файлов");
         textChanges.setVisible(true);
         scrollPane1.setViewportView(textChanges);
-        final JPanel spacer3 = new JPanel();
-        gbc = new GridBagConstraints();
-        gbc.gridx = 0;
-        gbc.gridy = 2;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        panel1.add(spacer3, gbc);
     }
 
     /**
@@ -131,4 +113,5 @@ public class ListOfChanges extends JFrame {
     public JComponent $$$getRootComponent$$$() {
         return panel;
     }
+
 }

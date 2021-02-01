@@ -10,7 +10,8 @@ import java.util.List;
 public class Model { //12/01/21
     private Path path;
     private final StringBuilder consoleStringBuilder;
-    private final List<Path> list;
+    private final List<Path> listFiles;
+    private final List<Path> listDir;
     private final WorkingHours workingHours;
     private String textSearch;
     private String textReplace;
@@ -19,14 +20,14 @@ public class Model { //12/01/21
     private int countProcessedFiles = 0;
     private int countDir = 0;
     private int countProcessedDir = 0;
-
     //private long sizeDir = 0;
 
     // Constructor
     public Model() {
         path = Path.of(""); // путь до папки , в которой будет производить переименование
         workingHours = new WorkingHours(this); // Время процесса переименования
-        list = new ArrayList<>(); // Список файлов, подходяций под заданные критерии
+        listFiles = new ArrayList<>(); // Список файлов, подходящий под заданные критерии
+        listDir = new ArrayList<>(); // Список директорий, подходящих под заданные критерии
         consoleStringBuilder = new StringBuilder(); // Лог работы
         // "Добро пожаловать в программу пакетного переименования файлов и папок\n"
     }
@@ -63,14 +64,17 @@ public class Model { //12/01/21
         consoleStringBuilder.append("Отмена выбора произведена\n");
     }
 
-    public void clearCountFiles() {
+    public void resetTask() {
+        listDir.clear();
+        listFiles.clear();
         countFiles = 0;
         countProcessedFiles = 0;
         countDir = 0;
         countProcessedDir = 0;
     }
 
-    public void processing() {
+    public void startTaskRename() {
+        resetTask();
         try {
             if (checkingErrorReplace()) {
                 workingHours.startTime();
@@ -85,12 +89,11 @@ public class Model { //12/01/21
             }
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
-            clearCountFiles(); // Очистка переменных от данных о кол-ве директорий и файлов
         }
     }
 
-    public void processingAdd() {
+    public void startTaskAdd() {
+        resetTask();
         try {
             if (checkingErrorAdd()) {
                 workingHours.startTime();
@@ -105,8 +108,6 @@ public class Model { //12/01/21
             }
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
-            clearCountFiles(); // Очистка переменных от данных о кол-ве директорий и файлов
         }
     }
 
@@ -144,8 +145,7 @@ public class Model { //12/01/21
                     if (!dir.toAbsolutePath().toString().equals(path.toAbsolutePath().toString())) {
                         countDir++;
                         if (dir.getFileName().toString().contains(textSearch)) {
-                            list.add(dir.toAbsolutePath());
-                            countProcessedDir++;
+                            listDir.add(dir.toAbsolutePath());
                         }
                     }
                     return FileVisitResult.CONTINUE;
@@ -156,8 +156,7 @@ public class Model { //12/01/21
                     countFiles++;
                     //sizeDir += attrs.size();
                     if (file.getFileName().toString().contains(textSearch)) {
-                        list.add(file.toAbsolutePath());
-                        countProcessedFiles++;
+                        listFiles.add(file.toAbsolutePath());
                     }
                     return FileVisitResult.CONTINUE;
                 }
@@ -166,9 +165,10 @@ public class Model { //12/01/21
             e.printStackTrace();
         } finally {
             // Это проверка
-            System.out.println(list);
+            System.out.println(listFiles);
+            System.out.println(listDir);
         }
-        return countProcessedDir + countProcessedFiles > 0;
+        return countDir + countFiles > 0;
     }
 
     private boolean addInListFilesForAdd() {
@@ -178,8 +178,7 @@ public class Model { //12/01/21
                 public FileVisitResult postVisitDirectory(Path dir, IOException exc) {
                     if (!dir.toAbsolutePath().toString().equals(path.toAbsolutePath().toString())) {
                         countDir++;
-                        list.add(dir.toAbsolutePath());
-                        countProcessedDir++;
+                        listDir.add(dir.toAbsolutePath());
                     }
                     return FileVisitResult.CONTINUE;
                 }
@@ -188,51 +187,66 @@ public class Model { //12/01/21
                 public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) {
                     countFiles++;
                     //sizeDir += attrs.size();
-                    list.add(file.toAbsolutePath());
-                    countProcessedFiles++;
+                    listFiles.add(file.toAbsolutePath());
                     return FileVisitResult.CONTINUE;
                 }
-
             });
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
             // Это проверка
-            System.out.println(list);
+            System.out.println(listFiles);
+            System.out.println(listDir);
         }
-        return countProcessedDir + countProcessedFiles > 0;
+        return countDir + countFiles > 0;
     }
 
     public void rename() {
-        for (int i = 0; i < list.size(); i++) {
-            File file = list.get(i).toFile();
-            String newFileName = replaceText(list.get(i));
-            File fileResult = new File(list.get(i).getParent() + "/" + newFileName);
-            file.renameTo(fileResult);
+        for (int i = 0; i < listFiles.size(); i++) {
+            File file = listFiles.get(i).toFile();
+            String newFileName = replaceText(listFiles.get(i));
+            File fileResult = new File(listFiles.get(i).getParent() + "/" + newFileName);
+            if (file.renameTo(fileResult)) countProcessedFiles++;
         }
-        list.clear();
+        for (int i = 0; i < listDir.size(); i++) {
+            File file = listDir.get(i).toFile();
+            String newFileName = replaceText(listDir.get(i));
+            File fileResult = new File(listDir.get(i).getParent() + "/" + newFileName);
+            if (file.renameTo(fileResult)) countProcessedDir++;
+
+        }
     }
 
     private void renameAdd() {
-        for (int i = 0; i < list.size(); i++) {
-            File file = list.get(i).toFile();
-            String newFileName = insertText(list.get(i));
+        for (int i = 0; i < listFiles.size(); i++) {
+            File file = listFiles.get(i).toFile();
+            String newFileName = insertText(listFiles.get(i));
             File fileResult;
             if (newFileName.startsWith(" ")) {
-                fileResult = new File(list.get(i).getParent() + "/" + newFileName.replaceFirst("\\s+", ""));
+                fileResult = new File(listFiles.get(i).getParent() + "/" + newFileName.replaceFirst("\\s+", ""));
             } else {
-                fileResult = new File(list.get(i).getParent() + "/" + newFileName);
+                fileResult = new File(listFiles.get(i).getParent() + "/" + newFileName);
             }
-            file.renameTo(fileResult);
+            if (file.renameTo(fileResult)) countProcessedFiles++;
         }
-        list.clear();
+        for (int i = 0; i < listDir.size(); i++) {
+            File file = listDir.get(i).toFile();
+            String newFileName = insertText(listDir.get(i));
+            File fileResult;
+            if (newFileName.startsWith(" ")) {
+                fileResult = new File(listDir.get(i).getParent() + "/" + newFileName.replaceFirst("\\s+", ""));
+            } else {
+                fileResult = new File(listDir.get(i).getParent() + "/" + newFileName);
+            }
+            if (file.renameTo(fileResult)) countProcessedDir++;
+        }
     }
 
     public String replaceText(Path pathFile) {  // Замена
         return pathFile.getFileName().toString().replace(textSearch, textReplace);
     }
 
-    private String insertText(Path pathFile) {
+    private String insertText(Path pathFile) { // Добавление текста в начало строки
         return new StringBuilder(pathFile.getFileName().toString()).insert(0, textAdd).toString();
     }
 

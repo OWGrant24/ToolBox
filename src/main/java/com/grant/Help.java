@@ -55,26 +55,15 @@ public class Help extends JFrame {
         panel1.setLayout(new GridBagLayout());
         panel1.setPreferredSize(new Dimension(550, 250));
         panelHelp.add(panel1, BorderLayout.CENTER);
-        final JPanel spacer1 = new JPanel();
-        GridBagConstraints gbc;
-        gbc = new GridBagConstraints();
-        gbc.gridx = 2;
-        gbc.gridy = 1;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        panel1.add(spacer1, gbc);
-        final JPanel spacer2 = new JPanel();
-        gbc = new GridBagConstraints();
-        gbc.gridx = 1;
-        gbc.gridy = 0;
-        gbc.fill = GridBagConstraints.VERTICAL;
-        panel1.add(spacer2, gbc);
         final JScrollPane scrollPane1 = new JScrollPane();
         scrollPane1.setMinimumSize(new Dimension(500, 200));
         scrollPane1.setPreferredSize(new Dimension(500, 200));
+        GridBagConstraints gbc;
         gbc = new GridBagConstraints();
-        gbc.gridx = 1;
-        gbc.gridy = 1;
+        gbc.gridx = 0;
+        gbc.gridy = 0;
         gbc.fill = GridBagConstraints.BOTH;
+        gbc.insets = new Insets(5, 5, 5, 5);
         panel1.add(scrollPane1, gbc);
         TextArea = new JTextArea();
         TextArea.setBackground(new Color(-1644826));
@@ -83,18 +72,6 @@ public class Help extends JFrame {
         if (TextAreaFont != null) TextArea.setFont(TextAreaFont);
         TextArea.setText("Программа предназначена для пакетного переименования файлов и папок\nЧтобы воспользоваться данной программой необходимо:\n- выбрать папку в которой будем производить переименование, \nкнопкой \"Выбор директории\"\n- если путь выбран правильно, в окне \"Вывод информации\" \nполучите подтверждение.\n- в графе \"Найти\" ввести текст, который будем заменять.\n- в графе \"Заменить\" текст на который будем заменять.\n- нажимаем \"Переименовать\" и ждём успешное завершение.");
         scrollPane1.setViewportView(TextArea);
-        final JPanel spacer3 = new JPanel();
-        gbc = new GridBagConstraints();
-        gbc.gridx = 0;
-        gbc.gridy = 1;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        panel1.add(spacer3, gbc);
-        final JPanel spacer4 = new JPanel();
-        gbc = new GridBagConstraints();
-        gbc.gridx = 1;
-        gbc.gridy = 2;
-        gbc.fill = GridBagConstraints.VERTICAL;
-        panel1.add(spacer4, gbc);
     }
 
     /**
@@ -125,4 +102,5 @@ public class Help extends JFrame {
     public JComponent $$$getRootComponent$$$() {
         return panelHelp;
     }
+
 }

@@ -70,14 +70,14 @@ public class Controller {
     public void processing() { // Запуск пакетного переименования
         if (checkingInvalidCharReplace()) {
             generateText();
-            model.processing();
+            model.startTaskRename();
         }
     }
 
     public void processingAdd() {
         if (checkingInvalidCharAdd()) {
             generateTextAdd();
-            model.processingAdd();
+            model.startTaskAdd();
         }
     }
 
