@@ -166,7 +166,7 @@
                       <gridbag top="0" left="6" bottom="0" right="6" weightx="0.0" weighty="0.0"/>
                     </constraints>
                     <properties>
-                      <text value="Добавление введеного текста в начало названия файлов и директорий"/>
+                      <text value="Добавление текста в заданную позицию в названии файлов и директорий"/>
                     </properties>
                   </component>
                   <component id="204d1" class="javax.swing.JSpinner" binding="spinner1" custom-create="true" default-binding="true">
