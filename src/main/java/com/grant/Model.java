@@ -20,6 +20,7 @@ public class Model { //12/01/21
     private int countProcessedFiles = 0;
     private int countDir = 0;
     private int countProcessedDir = 0;
+    private int numberInsert;
     //private long sizeDir = 0;
 
     // Constructor
@@ -56,6 +57,10 @@ public class Model { //12/01/21
 
     public void setTextReplace(String textReplace) {
         this.textReplace = textReplace;
+    }
+
+    public void setNumberInsert(int numberInsert) {
+        this.numberInsert = numberInsert;
     }
 
     // Methods
@@ -223,7 +228,8 @@ public class Model { //12/01/21
             String newFileName = insertText(listFiles.get(i));
             File fileResult;
             if (newFileName.startsWith(" ")) {
-                fileResult = new File(listFiles.get(i).getParent() + "/" + newFileName.replaceFirst("\\s+", ""));
+                fileResult = new File(listFiles.get(i).getParent()
+                        + "/" + newFileName.replaceFirst("\\s+", ""));
             } else {
                 fileResult = new File(listFiles.get(i).getParent() + "/" + newFileName);
             }
@@ -234,7 +240,8 @@ public class Model { //12/01/21
             String newFileName = insertText(listDir.get(i));
             File fileResult;
             if (newFileName.startsWith(" ")) {
-                fileResult = new File(listDir.get(i).getParent() + "/" + newFileName.replaceFirst("\\s+", ""));
+                fileResult = new File(listDir.get(i).getParent()
+                        + "/" + newFileName.replaceFirst("\\s+", ""));
             } else {
                 fileResult = new File(listDir.get(i).getParent() + "/" + newFileName);
             }
@@ -246,8 +253,12 @@ public class Model { //12/01/21
         return pathFile.getFileName().toString().replace(textSearch, textReplace);
     }
 
-    private String insertText(Path pathFile) { // Добавление текста в начало строки
-        return new StringBuilder(pathFile.getFileName().toString()).insert(0, textAdd).toString();
+    private String insertText(Path pathFile) { // Добавление текста в заданную позицию
+        int lengthNameFile = pathFile.getFileName().toString().length();
+        if (numberInsert >= lengthNameFile) {
+            return new StringBuilder(pathFile.getFileName().toString()).insert(lengthNameFile, textAdd).toString();
+        }
+        return new StringBuilder(pathFile.getFileName().toString()).insert(numberInsert, textAdd).toString();
     }
 
     public void infoProcess() {

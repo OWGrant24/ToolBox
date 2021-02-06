@@ -105,7 +105,9 @@ public class Controller {
     }
 
     public void generateTextAdd() {   // передаёт модели значения параметров введеных пользователем
-        if (view.getTextFieldAdd().getText().startsWith(" ")) {
+        int numberInsert = (Integer) view.getSpinner1().getValue();
+        model.setNumberInsert(numberInsert);
+        if (numberInsert == 0 && view.getTextFieldAdd().getText().startsWith(" ")) {
             model.setTextAdd(view.getTextFieldAdd().getText().replaceFirst("\\s+", ""));
         } else {
             model.setTextAdd(view.getTextFieldAdd().getText());
