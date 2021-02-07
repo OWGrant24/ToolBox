@@ -229,28 +229,27 @@
           </component>
         </children>
       </grid>
-      <grid id="62c1e" class="javax.swing.JMenuBar" layout-manager="FlowLayout" hgap="5" vgap="0" flow-align="0">
+      <grid id="62c1e" class="javax.swing.JMenuBar" binding="jMenuBar" layout-manager="FlowLayout" hgap="5" vgap="0" flow-align="0">
         <constraints border-constraint="North"/>
         <properties/>
         <border type="none"/>
         <children>
-          <grid id="7753b" class="javax.swing.JMenu" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
+          <grid id="7753b" class="javax.swing.JMenu" binding="fileMenu" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
             <constraints/>
             <properties>
               <text value="Файл"/>
             </properties>
             <border type="none"/>
             <children>
-              <grid id="d2f0b" class="javax.swing.JMenuItem" binding="JMenuItemOpenDir" layout-manager="BorderLayout" hgap="0" vgap="0">
+              <grid id="d2f0b" class="javax.swing.JMenuItem" binding="openDirMenuItem" custom-create="true" layout-manager="BorderLayout" hgap="0" vgap="0">
                 <constraints/>
                 <properties>
-                  <inheritsPopupMenu value="false"/>
                   <text value="Выбор директории"/>
                 </properties>
                 <border type="none"/>
                 <children/>
               </grid>
-              <grid id="d1053" class="javax.swing.JMenuItem" binding="JMenuItemExit" layout-manager="BorderLayout" hgap="0" vgap="0">
+              <grid id="d1053" class="javax.swing.JMenuItem" binding="exitMenuItem" custom-create="true" layout-manager="BorderLayout" hgap="0" vgap="0">
                 <constraints/>
                 <properties>
                   <text value="Выход"/>
@@ -260,14 +259,14 @@
               </grid>
             </children>
           </grid>
-          <grid id="61f3c" class="javax.swing.JMenu" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
+          <grid id="61f3c" class="javax.swing.JMenu" binding="referenceMenu" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
             <constraints/>
             <properties>
               <text value="Справка"/>
             </properties>
             <border type="none"/>
             <children>
-              <grid id="156f1" class="javax.swing.JMenuItem" binding="help" layout-manager="BorderLayout" hgap="0" vgap="0">
+              <grid id="156f1" class="javax.swing.JMenuItem" binding="helpMenuItem" custom-create="true" layout-manager="BorderLayout" hgap="0" vgap="0">
                 <constraints/>
                 <properties>
                   <text value="Помощь"/>
@@ -275,7 +274,7 @@
                 <border type="none"/>
                 <children/>
               </grid>
-              <grid id="b3310" class="javax.swing.JMenuItem" binding="ListOfChanges" layout-manager="BorderLayout" hgap="0" vgap="0">
+              <grid id="b3310" class="javax.swing.JMenuItem" binding="listOfChangesMenuItem" custom-create="true" layout-manager="BorderLayout" hgap="0" vgap="0">
                 <constraints/>
                 <properties>
                   <text value="Список изменений"/>
@@ -283,7 +282,7 @@
                 <border type="none"/>
                 <children/>
               </grid>
-              <grid id="aa198" class="javax.swing.JMenuItem" binding="AboutProg" layout-manager="BorderLayout" hgap="0" vgap="0">
+              <grid id="aa198" class="javax.swing.JMenuItem" binding="aboutProgMenuItem" custom-create="true" layout-manager="BorderLayout" hgap="0" vgap="0">
                 <constraints/>
                 <properties>
                   <text value="О программе"/>

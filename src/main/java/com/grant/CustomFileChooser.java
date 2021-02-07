@@ -16,6 +16,7 @@ public class CustomFileChooser extends JFileChooser {
     }
 
     private void initFileChooser() {
+        createDialog(view);
         setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
         if (model.getPath().toString() != null & !model.getPath().toString().isEmpty()) {
             setCurrentDirectory(model.getPath().toFile());
@@ -28,7 +29,8 @@ public class CustomFileChooser extends JFileChooser {
             File file = getSelectedFile();
             model.setPath(file.toPath());
             System.out.println(model.getPath().toString());
-            model.getConsoleStringBuilder().append("Директория: ").append(model.getPath().toString()).append(" успешно выбрана\n");
+            model.getConsoleStringBuilder().append("Директория: ").append(model.getPath().toString())
+                    .append(" успешно выбрана\n");
         } else {
             model.getConsoleStringBuilder().append("Выбор директории отменен\n");
         }
@@ -38,27 +40,28 @@ public class CustomFileChooser extends JFileChooser {
     }
 
     public void setUpdateUI(JFileChooser choose) {
-        UIManager.put("FileChooser.saveButtonText", "Сохранить");
-        UIManager.put("FileChooser.saveButtonToolTipText", "Сохранить");
-        UIManager.put("FileChooser.openButtonText", "Открыть");
-        UIManager.put("FileChooser.openButtonToolTipText", "Открыть");
+        UIManager.put("FileChooser.acceptAllFileFilterText", "Все файлы");
         UIManager.put("FileChooser.cancelButtonText", "Отмена");
         UIManager.put("FileChooser.cancelButtonToolTipText", "Отмена");
-        UIManager.put("FileChooser.lookInLabelText", "Директория");
-        UIManager.put("FileChooser.saveInLabelText", "Сохранить в директории");
-        UIManager.put("FileChooser.folderNameLabelText", "Путь директории");
-        UIManager.put("FileChooser.fileNameLabelText", "Имя файла");
-        UIManager.put("FileChooser.filesOfTypeLabelText", "Тип файла");
-        UIManager.put("FileChooser.upFolderToolTipText", "На один уровень вверх");
-        UIManager.put("FileChooser.newFolderToolTipText", "Создание новой папки");
-        UIManager.put("FileChooser.listViewButtonToolTipText", "Список");
         UIManager.put("FileChooser.detailsViewButtonToolTipText", "Таблица");
         UIManager.put("FileChooser.fileNameHeaderText", "Имя");
         UIManager.put("FileChooser.fileSizeHeaderText", "Размер");
         UIManager.put("FileChooser.fileTypeHeaderText", "Тип");
         UIManager.put("FileChooser.fileDateHeaderText", "Изменен");
         UIManager.put("FileChooser.fileAttrHeaderText", "Атрибуты");
-        UIManager.put("FileChooser.acceptAllFileFilterText", "Все файлы");
+        UIManager.put("FileChooser.folderNameLabelText", "Путь директории");
+        UIManager.put("FileChooser.fileNameLabelText", "Имя файла");
+        UIManager.put("FileChooser.filesOfTypeLabelText", "Тип файла");
+        UIManager.put("FileChooser.lookInLabelText", "Директория");
+        UIManager.put("FileChooser.listViewButtonToolTipText", "Список");
+        UIManager.put("FileChooser.newFolderAccessibleName", "Создание новой папки");
+        UIManager.put("FileChooser.openButtonText", "Открыть");
+        UIManager.put("FileChooser.openButtonToolTipText", "Открыть");
+        UIManager.put("FileChooser.saveButtonText", "Сохранить");
+        UIManager.put("FileChooser.saveButtonToolTipText", "Сохранить");
+        UIManager.put("FileChooser.saveInLabelText", "Сохранить в директории");
+        UIManager.put("FileChooser.upFolderToolTipText", "На один уровень вверх");
+
         choose.updateUI();
     }
 }

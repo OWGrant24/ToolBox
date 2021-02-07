@@ -12,19 +12,22 @@ public class View extends JFrame {
     private JTextField textFieldSearch;
     private JButton processingButton;
     private JButton cancelChoiceButton;
-    private JMenuItem JMenuItemExit;
-    private JMenuItem JMenuItemOpenDir;
+    private JMenuItem exitMenuItem;
+    private JMenuItem openDirMenuItem;
     private JTextField textFieldPath;
-    private JMenuItem AboutProg;
+    private JMenuItem aboutProgMenuItem;
     private JTextField textFieldReplace;
-    private JMenuItem help;
-    private JMenuItem ListOfChanges;
+    private JMenuItem helpMenuItem;
+    private JMenuItem listOfChangesMenuItem;
     private JTabbedPane tabbedPane;
     private JPanel Replace;
     private JPanel Add;
     private JTextField textFieldAdd;
     private JButton buttonOpenDir;
     private JSpinner spinner1;
+    private JMenu referenceMenu;
+    private JMenu fileMenu;
+    private JMenuBar jMenuBar;
 
     // Constructor
     public View() {
@@ -65,23 +68,23 @@ public class View extends JFrame {
     }
 
     public JMenuItem getJMenuItemExit() {
-        return JMenuItemExit;
+        return exitMenuItem;
     }
 
     public JMenuItem getJMenuItemOpenDir() {
-        return JMenuItemOpenDir;
+        return openDirMenuItem;
     }
 
     public JMenuItem getAboutProg() {
-        return AboutProg;
+        return aboutProgMenuItem;
     }
 
     public JMenuItem getHelp() {
-        return help;
+        return helpMenuItem;
     }
 
     public JMenuItem getListOfChanges() {
-        return ListOfChanges;
+        return listOfChangesMenuItem;
     }
 
     public JPanel getMainPanel() {
@@ -111,7 +114,7 @@ public class View extends JFrame {
         // Приложение завершит свою работу при закрытии GUI интерфейса
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setLocationRelativeTo(null); // Отображение по центру
-        setTitle("Пакетное переименование файлов v0.5a");
+        setTitle("Пакетное переименование файлов v0.5b");
         setResizable(false);
         // Устанавливаем иконку
         try {
@@ -119,15 +122,16 @@ public class View extends JFrame {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        setVisible(true);
         pack();
-        // Делаем фрейм видимым
+        setVisible(true); // Делаем фрейм видимым
+
     }
 
     public void initSystemLookAndFeel() {
         try {
             String systemLookAndFeelClassName = UIManager.getSystemLookAndFeelClassName();
             // for Windows: com.sun.java.swing.plaf.windows.WindowsLookAndFeel
+            // for Windows Classic: com.sun.java.swing.plaf.windows.WindowsClassicLookAndFeel
             //System.out.println(systemLookAndFeelClassName); // Текущий LookAndFeel;
             UIManager.setLookAndFeel(systemLookAndFeelClassName); // устанавливаем LookAndFeel
         } catch (UnsupportedLookAndFeelException e) {
@@ -150,7 +154,49 @@ public class View extends JFrame {
         mainPanel = new JPanel();
         jpanel = new JPanel();
         spinner1 = new JSpinner(new SpinnerNumberModel(0, 0, 32767, 1));
+        // Меню:
+        openDirMenuItem = new JMenuItem(); // Выбор директории
+        exitMenuItem = new JMenuItem(); // Выход
+        helpMenuItem = new JMenuItem(); // Помощь
+        listOfChangesMenuItem = new JMenuItem(); // Список изменений
+        aboutProgMenuItem = new JMenuItem(); // О программе
 
+        setIcon();
+
+
+    }
+
+    private void setIcon() {
+        try {
+            openDirMenuItem.setIcon(new ImageIcon(new ImageIcon(getClass().getResource("/images/files-folders-folder-2.png"))
+                    .getImage().getScaledInstance(15, 13, Image.SCALE_SMOOTH)));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        try {
+            exitMenuItem.setIcon(new ImageIcon(new ImageIcon(getClass().getResource("/images/interface-logout.png"))
+                    .getImage().getScaledInstance(15, 15, Image.SCALE_SMOOTH)));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        try {
+            helpMenuItem.setIcon(new ImageIcon(new ImageIcon(getClass().getResource("/images/interface-help.png"))
+                    .getImage().getScaledInstance(15, 15, Image.SCALE_SMOOTH)));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        try {
+            listOfChangesMenuItem.setIcon(new ImageIcon(new ImageIcon(getClass().getResource("/images/arrow-thick-up-2.png"))
+                    .getImage().getScaledInstance(15, 9, Image.SCALE_SMOOTH)));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        try {
+            aboutProgMenuItem.setIcon(new ImageIcon(new ImageIcon(getClass().getResource("/images/design-shape-polygon-1.png"))
+                    .getImage().getScaledInstance(15, 15, Image.SCALE_SMOOTH)));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     {
@@ -287,7 +333,7 @@ public class View extends JFrame {
         gbc.insets = new Insets(6, 6, 6, 6);
         Add.add(textFieldAdd, gbc);
         final JLabel label5 = new JLabel();
-        label5.setText("Добавление введеного текста в начало названия файлов и директорий");
+        label5.setText("Добавление текста в заданную позицию в названии файлов и директорий");
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 0;
@@ -343,38 +389,27 @@ public class View extends JFrame {
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.insets = new Insets(6, 6, 6, 6);
         jpanel.add(consoleClearButton, gbc);
-        final JMenuBar menuBar1 = new JMenuBar();
-        menuBar1.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 0));
-        mainPanel.add(menuBar1, BorderLayout.NORTH);
-        final JMenu menu1 = new JMenu();
-        menu1.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-        menu1.setText("Файл");
-        menuBar1.add(menu1);
-        JMenuItemOpenDir = new JMenuItem();
-        JMenuItemOpenDir.setLayout(new BorderLayout(0, 0));
-        JMenuItemOpenDir.setInheritsPopupMenu(false);
-        JMenuItemOpenDir.setText("Выбор директории");
-        menu1.add(JMenuItemOpenDir);
-        JMenuItemExit = new JMenuItem();
-        JMenuItemExit.setLayout(new BorderLayout(0, 0));
-        JMenuItemExit.setText("Выход");
-        menu1.add(JMenuItemExit);
-        final JMenu menu2 = new JMenu();
-        menu2.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-        menu2.setText("Справка");
-        menuBar1.add(menu2);
-        help = new JMenuItem();
-        help.setLayout(new BorderLayout(0, 0));
-        help.setText("Помощь");
-        menu2.add(help);
-        ListOfChanges = new JMenuItem();
-        ListOfChanges.setLayout(new BorderLayout(0, 0));
-        ListOfChanges.setText("Список изменений");
-        menu2.add(ListOfChanges);
-        AboutProg = new JMenuItem();
-        AboutProg.setLayout(new BorderLayout(0, 0));
-        AboutProg.setText("О программе");
-        menu2.add(AboutProg);
+        jMenuBar = new JMenuBar();
+        jMenuBar.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 0));
+        mainPanel.add(jMenuBar, BorderLayout.NORTH);
+        fileMenu = new JMenu();
+        fileMenu.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+        fileMenu.setText("Файл");
+        jMenuBar.add(fileMenu);
+        openDirMenuItem.setText("Выбор директории");
+        fileMenu.add(openDirMenuItem);
+        exitMenuItem.setText("Выход");
+        fileMenu.add(exitMenuItem);
+        referenceMenu = new JMenu();
+        referenceMenu.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+        referenceMenu.setText("Справка");
+        jMenuBar.add(referenceMenu);
+        helpMenuItem.setText("Помощь");
+        referenceMenu.add(helpMenuItem);
+        listOfChangesMenuItem.setText("Список изменений");
+        referenceMenu.add(listOfChangesMenuItem);
+        aboutProgMenuItem.setText("О программе");
+        referenceMenu.add(aboutProgMenuItem);
     }
 
     /**

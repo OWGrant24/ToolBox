@@ -6,7 +6,7 @@
 
     <groupId>com.grant</groupId>
     <artifactId>ToolBox</artifactId>
-    <version>0.5a-SNAPSHOT</version>
+    <version>0.5b-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>ToolBox</name>
     <!-- Не работающий репозиторий -->
