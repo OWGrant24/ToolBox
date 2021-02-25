@@ -1,7 +1,13 @@
-package com.grant;
+package com.grant.util;
+
+import com.grant.HelperOutView;
+import com.grant.model.Model;
+import com.grant.view.View;
 
 import javax.swing.*;
 import java.io.File;
+
+import static com.grant.OutputWindow.consoleStringBuilder;
 
 public class CustomFileChooser extends JFileChooser {
     private final Model model;
@@ -29,10 +35,10 @@ public class CustomFileChooser extends JFileChooser {
             File file = getSelectedFile();
             model.setPath(file.toPath());
             System.out.println(model.getPath().toString());
-            model.getConsoleStringBuilder().append("Директория: ").append(model.getPath().toString())
+            consoleStringBuilder.append("Директория: ").append(model.getPath().toString())
                     .append(" успешно выбрана\n");
         } else {
-            model.getConsoleStringBuilder().append("Выбор директории отменен\n");
+            consoleStringBuilder.append("Выбор директории отменен\n");
         }
         if (!model.getPath().toString().isEmpty() || model.getPath().toString() != null) {
             helperOutView.outputTextFieldPath();

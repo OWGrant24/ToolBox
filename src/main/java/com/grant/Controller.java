@@ -1,10 +1,19 @@
 package com.grant;
 
 
+import com.grant.model.Functions;
+import com.grant.model.Model;
+import com.grant.util.CustomFileChooser;
+import com.grant.view.Help;
+import com.grant.view.ListOfChanges;
+import com.grant.view.View;
+
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
+
+import static com.grant.OutputWindow.consoleStringBuilder;
 
 public class Controller {
     private final Model model;
@@ -57,7 +66,7 @@ public class Controller {
                     ie.printStackTrace();
                 }
             } else {
-                model.getConsoleStringBuilder().append("Директория не выбрана\n");
+                consoleStringBuilder.append("Директория не выбрана\n");
                 helperOutView.logInConsole();
             }
         });
@@ -70,14 +79,14 @@ public class Controller {
     public void processing() { // Запуск пакетного переименования
         if (checkingInvalidCharReplace()) {
             generateText();
-            model.startTaskRename();
+            model.startTask(Functions.REPLACE);
         }
     }
 
     public void processingAdd() {
         if (checkingInvalidCharAdd()) {
             generateTextAdd();
-            model.startTaskAdd();
+            model.startTask(Functions.ADD);
         }
     }
 
@@ -116,7 +125,7 @@ public class Controller {
 
     public void clearConsole() {
         view.getTextAreaConsole().setText("");
-        model.getConsoleStringBuilder().setLength(0);
+        consoleStringBuilder.setLength(0);
     }
 
     public void cancelSelection() {  // Отмена выбора директории

@@ -1,13 +1,10 @@
-package com.grant;
+package com.grant.util;
+
+import static com.grant.OutputWindow.consoleStringBuilder;
 
 public class WorkingHours { // Класс будет отвечать за расчёт время работы
-    private final Model model;
     private long startTime;
     private long endTime;
-
-    public WorkingHours(Model model) {
-        this.model = model;
-    }
 
     public void startTime() {
         startTime = System.nanoTime();
@@ -20,9 +17,9 @@ public class WorkingHours { // Класс будет отвечать за ра�
     public void durationTime() {
         long duration = (endTime - startTime);
         if (duration < 1_000_000_000) {
-            model.getConsoleStringBuilder().append("Процесс переименования занял: ").append(duration / 1_000_000).append(" мс.\n");
+            consoleStringBuilder.append("Процесс переименования занял: ").append(duration / 1_000_000).append(" мс.\n");
         } else {
-            model.getConsoleStringBuilder().append("Процесс переименования занял: ").append(duration / 1_000_000_000).append(" с.\n");
+            consoleStringBuilder.append("Процесс переименования занял: ").append(duration / 1_000_000_000).append(" с.\n");
         }
 
     }

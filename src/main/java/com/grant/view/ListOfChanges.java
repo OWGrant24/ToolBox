@@ -1,4 +1,4 @@
-package com.grant;
+package com.grant.view;
 
 import javax.swing.*;
 import javax.swing.plaf.FontUIResource;
