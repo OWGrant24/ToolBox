@@ -175,7 +175,7 @@
                       <gridbag top="6" left="6" bottom="6" right="6" weightx="0.0" weighty="0.0"/>
                     </constraints>
                     <properties>
-                      <preferredSize width="88" height="25"/>
+                      <preferredSize width="55" height="25"/>
                     </properties>
                   </component>
                   <component id="4bbe3" class="javax.swing.JLabel">
@@ -185,6 +185,34 @@
                     </constraints>
                     <properties>
                       <text value="Место введения заданного текста (По умолчанию = 0)"/>
+                    </properties>
+                  </component>
+                </children>
+              </grid>
+              <grid id="d80a6" binding="Settings" layout-manager="GridBagLayout">
+                <constraints>
+                  <tabbedpane title="Настройки"/>
+                </constraints>
+                <properties/>
+                <border type="none"/>
+                <children>
+                  <component id="a4704" class="javax.swing.JSpinner" binding="depthSpinner" custom-create="true">
+                    <constraints>
+                      <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+                      <gridbag top="6" left="6" bottom="6" right="6" weightx="0.0" weighty="0.0"/>
+                    </constraints>
+                    <properties>
+                      <opaque value="false"/>
+                      <preferredSize width="55" height="25"/>
+                    </properties>
+                  </component>
+                  <component id="73c13" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                      <gridbag top="6" left="6" bottom="6" right="6" weightx="0.0" weighty="0.0"/>
+                    </constraints>
+                    <properties>
+                      <text value="Глубина вложенности (По умолчанию = 1)"/>
                     </properties>
                   </component>
                 </children>

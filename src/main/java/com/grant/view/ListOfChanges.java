@@ -1,24 +1,19 @@
 package com.grant.view;
 
+import lombok.Getter;
+
 import javax.swing.*;
 import javax.swing.plaf.FontUIResource;
 import javax.swing.text.StyleContext;
 import java.awt.*;
 import java.util.Locale;
 
+@Getter
 public class ListOfChanges extends JFrame {
     private final View view;
     private JPanel panel;
     private JTextArea textChanges;
     private JPanel internalPanel;
-
-    public JPanel getPanel() {
-        return panel;
-    }
-
-    public JTextArea getTextChanges() {
-        return textChanges;
-    }
 
     public ListOfChanges(View view) {
         this.view = view;

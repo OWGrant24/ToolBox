@@ -1,6 +1,8 @@
 package com.grant.model;
 
-import org.apache.commons.io.FileUtils;
+import com.grant.exception.ToolException;
+import com.grant.util.Functions;
+import com.grant.util.UtilRenamer;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -13,7 +15,7 @@ import java.util.List;
 
 class RenameTest {
     protected Path pathTempDir;
-    protected Model model;
+    protected UtilRenamer utilRenamer;
 
     private void createFile(Path path) {
         try {
@@ -56,15 +58,16 @@ class RenameTest {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        model = new Model();
-        model.setTextSearch("666");
-        model.setTextReplace("555");
-        model.setPath(pathTempDir);
+        utilRenamer = new UtilRenamer();
+        utilRenamer.setMaxDepth(100);
+        utilRenamer.setTextSearch("666");
+        utilRenamer.setTextReplace("555");
+        utilRenamer.setPath(pathTempDir);
     }
 
     @Test
-    void startTaskRename() {
-        model.startTask(Functions.REPLACE);
+    void startTaskRename() throws ToolException {
+        utilRenamer.startTask(Functions.REPLACE);
     }
 
     @AfterEach

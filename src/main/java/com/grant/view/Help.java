@@ -1,19 +1,18 @@
 package com.grant.view;
 
+import lombok.Getter;
+
 import javax.swing.*;
 import javax.swing.plaf.FontUIResource;
 import javax.swing.text.StyleContext;
 import java.awt.*;
 import java.util.Locale;
 
+@Getter
 public class Help extends JFrame {
     private final View view;
     private JPanel panelHelp;
     private JTextArea TextArea;
-
-    public JPanel getPanelHelp() {
-        return panelHelp;
-    }
 
     public Help(View view) {
         this.view = view;

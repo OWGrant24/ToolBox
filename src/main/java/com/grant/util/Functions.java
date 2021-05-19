@@ -1,4 +1,4 @@
-package com.grant.model;
+package com.grant.util;
 
 public enum Functions {
     REPLACE,

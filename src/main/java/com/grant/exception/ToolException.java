@@ -2,7 +2,7 @@ package com.grant.exception;
 
 import static com.grant.OutputWindow.consoleStringBuilder;
 
-public class ToolException extends RuntimeException {
+public class ToolException extends Exception {
 
     public ToolException(String message) {
         super(message);

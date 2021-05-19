@@ -1,8 +1,13 @@
 package com.grant.view;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.swing.*;
 import java.awt.*;
 
+@Getter
+@Setter
 public class View extends JFrame {
     private JPanel mainPanel;
     private JPanel jpanel;
@@ -28,85 +33,13 @@ public class View extends JFrame {
     private JMenu referenceMenu;
     private JMenu fileMenu;
     private JMenuBar jMenuBar;
+    private JPanel Settings;
+    private JSpinner depthSpinner;
 
     // Constructor
     public View(String title) {
         $$$setupUI$$$();
         setTitle(title);
-    }
-
-    // Getters and Setters
-
-    public JTextArea getTextAreaConsole() {
-        return textAreaConsole;
-    }
-
-    public JTextField getTextFieldSearch() {
-        return textFieldSearch;
-    }
-
-    public JTextField getTextFieldPath() {
-        return textFieldPath;
-    }
-
-    public JTextField getTextFieldReplace() {
-        return textFieldReplace;
-    }
-
-    public JButton getButtonChoiceFolder() {
-        return buttonChoiceFolder;
-    }
-
-    public JButton getConsoleClearButton() {
-        return consoleClearButton;
-    }
-
-    public JButton getProcessingButton() {
-        return processingButton;
-    }
-
-    public JButton getCancelChoiceButton() {
-        return cancelChoiceButton;
-    }
-
-    public JMenuItem getJMenuItemExit() {
-        return exitMenuItem;
-    }
-
-    public JMenuItem getJMenuItemOpenDir() {
-        return openDirMenuItem;
-    }
-
-    public JMenuItem getAboutProg() {
-        return aboutProgMenuItem;
-    }
-
-    public JMenuItem getHelp() {
-        return helpMenuItem;
-    }
-
-    public JMenuItem getListOfChanges() {
-        return listOfChangesMenuItem;
-    }
-
-    public JPanel getMainPanel() {
-        return mainPanel;
-    }
-
-    public JTabbedPane getTabbedPane() {
-        return tabbedPane;
-    }
-
-    public JTextField getTextFieldAdd() {
-        return textFieldAdd;
-    }
-
-    public JButton getButtonOpenDir() {
-        return buttonOpenDir;
-    }
-
-    public JSpinner getSpinner1() {
-        return spinner1;
     }
 
     public void init() {
@@ -118,8 +51,10 @@ public class View extends JFrame {
         setLocationRelativeTo(null); // Отображение по центру
         setResizable(false);
         // Устанавливаем иконку
+        Image image;
         try {
-            setIconImage(new ImageIcon(getClass().getResource("/images/icon.png")).getImage());
+            image = new ImageIcon(getClass().getResource("/images/icon.png")).getImage();
+            setIconImage(image);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -143,11 +78,19 @@ public class View extends JFrame {
     }
 
     public void showMessageErrorAdd() {
-        JOptionPane.showMessageDialog(this, "В строке \"Добавить\" имеются недопустимые символы", "Ошибка", JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(
+                this,
+                "В строке \"Добавить\" имеются недопустимые символы",
+                "Ошибка", JOptionPane.ERROR_MESSAGE
+        );
     }
 
     public void showMessageErrorReplace() {
-        JOptionPane.showMessageDialog(this, "В строке \"Заменить\" имеются недопустимые символы", "Ошибка", JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(
+                this,
+                "В строке \"Заменить\" имеются недопустимые символы",
+                "Ошибка", JOptionPane.ERROR_MESSAGE
+        );
     }
 
     private void createUIComponents() {
@@ -155,46 +98,32 @@ public class View extends JFrame {
         mainPanel = new JPanel();
         jpanel = new JPanel();
         spinner1 = new JSpinner(new SpinnerNumberModel(0, 0, 32767, 1));
+        depthSpinner = new JSpinner(new SpinnerNumberModel(1, 1, 32767, 1));
         // Меню:
         openDirMenuItem = new JMenuItem(); // Выбор директории
         exitMenuItem = new JMenuItem(); // Выход
         helpMenuItem = new JMenuItem(); // Помощь
         listOfChangesMenuItem = new JMenuItem(); // Список изменений
         aboutProgMenuItem = new JMenuItem(); // О программе
-
         setIcon();
-
-
     }
 
     private void setIcon() {
         try {
-            openDirMenuItem.setIcon(new ImageIcon(new ImageIcon(getClass().getResource("/images/files-folders-folder-2.png"))
-                    .getImage().getScaledInstance(15, 13, Image.SCALE_SMOOTH)));
+            openDirMenuItem.setIcon(
+                    new ImageIcon(
+                            new ImageIcon(getClass().getResource("/images/files-folders-folder-2.png"))
+                                    .getImage().getScaledInstance(15, 13, Image.SCALE_SMOOTH))
+            );
         } catch (Exception e) {
             e.printStackTrace();
         }
         try {
-            exitMenuItem.setIcon(new ImageIcon(new ImageIcon(getClass().getResource("/images/interface-logout.png"))
-                    .getImage().getScaledInstance(15, 15, Image.SCALE_SMOOTH)));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        try {
-            helpMenuItem.setIcon(new ImageIcon(new ImageIcon(getClass().getResource("/images/interface-help.png"))
-                    .getImage().getScaledInstance(15, 15, Image.SCALE_SMOOTH)));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        try {
-            listOfChangesMenuItem.setIcon(new ImageIcon(new ImageIcon(getClass().getResource("/images/arrow-thick-up-2.png"))
-                    .getImage().getScaledInstance(15, 9, Image.SCALE_SMOOTH)));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        try {
-            aboutProgMenuItem.setIcon(new ImageIcon(new ImageIcon(getClass().getResource("/images/design-shape-polygon-1.png"))
-                    .getImage().getScaledInstance(15, 15, Image.SCALE_SMOOTH)));
+            exitMenuItem.setIcon(
+                    new ImageIcon(
+                            new ImageIcon(getClass().getResource("/images/interface-logout.png"))
+                                    .getImage().getScaledInstance(15, 15, Image.SCALE_SMOOTH))
+            );
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -335,7 +264,7 @@ public class View extends JFrame {
         gbc.anchor = GridBagConstraints.WEST;
         gbc.insets = new Insets(0, 6, 0, 6);
         Add.add(label5, gbc);
-        spinner1.setPreferredSize(new Dimension(88, 25));
+        spinner1.setPreferredSize(new Dimension(55, 25));
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 2;
@@ -351,6 +280,26 @@ public class View extends JFrame {
         gbc.anchor = GridBagConstraints.WEST;
         gbc.insets = new Insets(6, 6, 6, 6);
         Add.add(label6, gbc);
+        Settings = new JPanel();
+        Settings.setLayout(new GridBagLayout());
+        tabbedPane.addTab("Настройки", Settings);
+        depthSpinner.setOpaque(false);
+        depthSpinner.setPreferredSize(new Dimension(55, 25));
+        gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.anchor = GridBagConstraints.WEST;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.insets = new Insets(6, 6, 6, 6);
+        Settings.add(depthSpinner, gbc);
+        final JLabel label7 = new JLabel();
+        label7.setText("Глубина вложенности (По умолчанию = 1)");
+        gbc = new GridBagConstraints();
+        gbc.gridx = 1;
+        gbc.gridy = 0;
+        gbc.anchor = GridBagConstraints.WEST;
+        gbc.insets = new Insets(6, 6, 6, 6);
+        Settings.add(label7, gbc);
         processingButton = new JButton();
         processingButton.setText("Переименовать");
         gbc = new GridBagConstraints();

@@ -1,7 +1,6 @@
 package com.grant.util;
 
 import com.grant.HelperOutView;
-import com.grant.model.Model;
 import com.grant.view.View;
 
 import javax.swing.*;
@@ -10,12 +9,12 @@ import java.io.File;
 import static com.grant.OutputWindow.consoleStringBuilder;
 
 public class CustomFileChooser extends JFileChooser {
-    private final Model model;
+    private final UtilRenamer utilRenamer;
     private final View view;
     private final HelperOutView helperOutView;
 
-    public CustomFileChooser(Model model,View view, HelperOutView helperOutView) {
-        this.model = model;
+    public CustomFileChooser(UtilRenamer utilRenamer, View view, HelperOutView helperOutView) {
+        this.utilRenamer = utilRenamer;
         this.view = view;
         this.helperOutView = helperOutView;
         initFileChooser();
@@ -24,8 +23,8 @@ public class CustomFileChooser extends JFileChooser {
     private void initFileChooser() {
         createDialog(view);
         setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-        if (model.getPath().toString() != null & !model.getPath().toString().isEmpty()) {
-            setCurrentDirectory(model.getPath().toFile());
+        if (utilRenamer.getPath().toString() != null & !utilRenamer.getPath().toString().isEmpty()) {
+            setCurrentDirectory(utilRenamer.getPath().toFile());
         }
         setAcceptAllFileFilterUsed(false);
         setUpdateUI(this);
@@ -33,14 +32,17 @@ public class CustomFileChooser extends JFileChooser {
 
         if (ret == JFileChooser.APPROVE_OPTION) {
             File file = getSelectedFile();
-            model.setPath(file.toPath());
-            System.out.println(model.getPath().toString());
-            consoleStringBuilder.append("Директория: ").append(model.getPath().toString())
+            utilRenamer.setPath(file.toPath());
+            System.out.println(utilRenamer.getPath().toString());
+            consoleStringBuilder
+                    .append("Директория: ")
+                    .append(utilRenamer.getPath().toString())
                     .append(" успешно выбрана\n");
         } else {
-            consoleStringBuilder.append("Выбор директории отменен\n");
+            consoleStringBuilder
+                    .append("Выбор директории отменен\n");
         }
-        if (!model.getPath().toString().isEmpty() || model.getPath().toString() != null) {
+        if (!utilRenamer.getPath().toString().isEmpty() || utilRenamer.getPath().toString() != null) {
             helperOutView.outputTextFieldPath();
         }
     }
