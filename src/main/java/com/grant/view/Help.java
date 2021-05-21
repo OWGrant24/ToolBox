@@ -101,5 +101,4 @@ public class Help extends JFrame {
     public JComponent $$$getRootComponent$$$() {
         return panelHelp;
     }
-
 }

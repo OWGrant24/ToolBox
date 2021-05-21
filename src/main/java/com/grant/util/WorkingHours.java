@@ -17,9 +17,9 @@ public class WorkingHours { // Класс будет отвечать за ра�
     public void durationTime() {
         long duration = (endTime - startTime);
         if (duration < 1_000_000_000) {
-            consoleStringBuilder.append("Процесс переименования занял: ").append(duration / 1_000_000).append(" мс.\n");
+            consoleStringBuilder.append("Процесс обработки занял: ").append(duration / 1_000_000).append(" мс.\n");
         } else {
-            consoleStringBuilder.append("Процесс переименования занял: ").append(duration / 1_000_000_000).append(" с.\n");
+            consoleStringBuilder.append("Процесс обработки занял: ").append(duration / 1_000_000_000).append(" с.\n");
         }
 
     }

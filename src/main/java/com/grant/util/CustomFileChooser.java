@@ -9,12 +9,12 @@ import java.io.File;
 import static com.grant.OutputWindow.consoleStringBuilder;
 
 public class CustomFileChooser extends JFileChooser {
-    private final UtilRenamer utilRenamer;
+    private final UtilRenamerImpl utilRenamerImpl;
     private final View view;
     private final HelperOutView helperOutView;
 
-    public CustomFileChooser(UtilRenamer utilRenamer, View view, HelperOutView helperOutView) {
-        this.utilRenamer = utilRenamer;
+    public CustomFileChooser(UtilRenamerImpl utilRenamerImpl, View view, HelperOutView helperOutView) {
+        this.utilRenamerImpl = utilRenamerImpl;
         this.view = view;
         this.helperOutView = helperOutView;
         initFileChooser();
@@ -23,8 +23,8 @@ public class CustomFileChooser extends JFileChooser {
     private void initFileChooser() {
         createDialog(view);
         setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-        if (utilRenamer.getPath().toString() != null & !utilRenamer.getPath().toString().isEmpty()) {
-            setCurrentDirectory(utilRenamer.getPath().toFile());
+        if (utilRenamerImpl.getPath().toString() != null & !utilRenamerImpl.getPath().toString().isEmpty()) {
+            setCurrentDirectory(utilRenamerImpl.getPath().toFile());
         }
         setAcceptAllFileFilterUsed(false);
         setUpdateUI(this);
@@ -32,17 +32,17 @@ public class CustomFileChooser extends JFileChooser {
 
         if (ret == JFileChooser.APPROVE_OPTION) {
             File file = getSelectedFile();
-            utilRenamer.setPath(file.toPath());
-            System.out.println(utilRenamer.getPath().toString());
+            utilRenamerImpl.setPath(file.toPath());
+            System.out.println(utilRenamerImpl.getPath().toString());
             consoleStringBuilder
                     .append("Директория: ")
-                    .append(utilRenamer.getPath().toString())
+                    .append(utilRenamerImpl.getPath().toString())
                     .append(" успешно выбрана\n");
         } else {
             consoleStringBuilder
                     .append("Выбор директории отменен\n");
         }
-        if (!utilRenamer.getPath().toString().isEmpty() || utilRenamer.getPath().toString() != null) {
+        if (!utilRenamerImpl.getPath().toString().isEmpty() || utilRenamerImpl.getPath().toString() != null) {
             helperOutView.outputTextFieldPath();
         }
     }

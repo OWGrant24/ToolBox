@@ -1,10 +1,11 @@
 package com.grant;
 
-
 import com.grant.exception.ToolException;
+import com.grant.proxy.TimerProxyFactory;
+import com.grant.util.CustomFileChooser;
 import com.grant.util.Functions;
 import com.grant.util.UtilRenamer;
-import com.grant.util.CustomFileChooser;
+import com.grant.util.UtilRenamerImpl;
 import com.grant.view.Help;
 import com.grant.view.ListOfChanges;
 import com.grant.view.View;
@@ -17,15 +18,15 @@ import java.io.IOException;
 import static com.grant.OutputWindow.consoleStringBuilder;
 
 public class Controller {
-    private final UtilRenamer utilRenamer;
+    private final UtilRenamerImpl utilRenamerImpl;
     private final View view;
     private final HelperOutView helperOutView;
 
     // Constructor
-    public Controller(View view, UtilRenamer utilRenamer) {
-        this.utilRenamer = utilRenamer;
+    public Controller(View view, UtilRenamerImpl utilRenamerImpl) {
+        this.utilRenamerImpl = utilRenamerImpl;
         this.view = view;
-        helperOutView = new HelperOutView(view, utilRenamer);
+        helperOutView = new HelperOutView(view, utilRenamerImpl);
         helperOutView.logInConsole();
     }
 
@@ -38,7 +39,7 @@ public class Controller {
             helperOutView.logInConsole();
         });
         view.getButtonChoiceFolder().addActionListener(e -> {                               // Выбор директории
-            new CustomFileChooser(utilRenamer, view, helperOutView);
+            new CustomFileChooser(utilRenamerImpl, view, helperOutView);
             helperOutView.logInConsole();
         });
 
@@ -48,25 +49,29 @@ public class Controller {
                     processing();
                 } catch (ToolException toolException) {
                     toolException.printStackTrace();
+                } finally {
+                    helperOutView.logInConsole();
                 }
-                helperOutView.logInConsole();
+
 //                System.out.println(view.getTabbedPane().getSelectedIndex());
             } else if (view.getTabbedPane().getSelectedIndex() == 1) {
                 try {
                     processingAdd();
                 } catch (ToolException toolException) {
                     toolException.printStackTrace();
+                } finally {
+                    helperOutView.logInConsole();
                 }
-                helperOutView.logInConsole();
+
             }
         });
         view.getOpenDirMenuItem().addActionListener(e -> {                                 // Выбор директории
-            new CustomFileChooser(utilRenamer, view, helperOutView);
+            new CustomFileChooser(utilRenamerImpl, view, helperOutView);
             helperOutView.logInConsole();
         });
         view.getButtonOpenDir().addActionListener(e -> {
-            if (!utilRenamer.getPath().toString().isEmpty() && utilRenamer.getPath() != null) {
-                File file = new File(utilRenamer.getPath().toString());
+            if (!utilRenamerImpl.getPath().toString().isEmpty() && utilRenamerImpl.getPath() != null) {
+                File file = new File(utilRenamerImpl.getPath().toString());
                 Desktop desktop = Desktop.getDesktop();
                 try {
                     desktop.open(file);
@@ -81,21 +86,22 @@ public class Controller {
         view.getAboutProgMenuItem().addActionListener(e -> aboutApp());                            // О программе
         view.getHelpMenuItem().addActionListener(e -> new Help(view));                              // Помощь
         view.getListOfChangesMenuItem().addActionListener(e -> new ListOfChanges(view));            // Список изменений
-        view.getExitMenuItem().addActionListener(e -> System.exit(0));              // Выход из программы
+        view.getExitMenuItem().addActionListener(e -> System.exit(0));                      // Выход из программы
     }
 
     public void processing() throws ToolException { // Запуск пакетного переименования
-        utilRenamer.setMaxDepth((Integer) view.getDepthSpinner().getValue());
+        utilRenamerImpl.setMaxDepth((Integer) view.getDepthSpinner().getValue());
         if (checkingInvalidCharReplace()) {
             generateText();
-            utilRenamer.startTask(Functions.REPLACE);
+            UtilRenamer timerProxyUtilRenamer = (UtilRenamer) new TimerProxyFactory(utilRenamerImpl).createProxy();
+            timerProxyUtilRenamer.startTask(Functions.REPLACE);
         }
     }
 
     public void processingAdd() throws ToolException {
         if (checkingInvalidCharAdd()) {
             generateTextAdd();
-            utilRenamer.startTask(Functions.ADD);
+            utilRenamerImpl.startTask(Functions.ADD);
         }
     }
 
@@ -117,18 +123,18 @@ public class Controller {
         }
     }
 
-    public void generateText() {   // передаёт модели значения параметров введеных пользователем
-        utilRenamer.setTextSearch(view.getTextFieldSearch().getText());
-        utilRenamer.setTextReplace(view.getTextFieldReplace().getText());
+    public void generateText() {                        // передаёт модели значения параметров введеных пользователем
+        utilRenamerImpl.setTextSearch(view.getTextFieldSearch().getText());
+        utilRenamerImpl.setTextReplace(view.getTextFieldReplace().getText());
     }
 
-    public void generateTextAdd() {   // передаёт модели значения параметров введеных пользователем
+    public void generateTextAdd() {                     // передаёт модели значения параметров введеных пользователем
         int numberInsert = (Integer) view.getSpinner1().getValue();
-        utilRenamer.setNumberInsert(numberInsert);
+        utilRenamerImpl.setNumberInsert(numberInsert);
         if (numberInsert == 0 && view.getTextFieldAdd().getText().startsWith(" ")) {
-            utilRenamer.setTextAdd(view.getTextFieldAdd().getText().replaceFirst("\\s+", ""));
+            utilRenamerImpl.setTextAdd(view.getTextFieldAdd().getText().replaceFirst("\\s+", ""));
         } else {
-            utilRenamer.setTextAdd(view.getTextFieldAdd().getText());
+            utilRenamerImpl.setTextAdd(view.getTextFieldAdd().getText());
         }
     }
 
@@ -138,14 +144,16 @@ public class Controller {
     }
 
     public void cancelSelection() {  // Отмена выбора директории
-        if (!utilRenamer.getPath().toString().isEmpty()) {
-            utilRenamer.cancelSelection();
+        if (!utilRenamerImpl.getPath().toString().isEmpty()) {
+            utilRenamerImpl.cancelSelection();
         }
     }
 
     public void aboutApp() {
-        JOptionPane.showMessageDialog(view, "Программа для пакетного переименования файлов\n" +
-                "Разработчик Александр Шабельский\n" +
-                "Начата разработка 12.01.21\n", "О программе", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(view,
+                "Программа для пакетного переименования файлов\n"
+                        + "Разработчик Александр Шабельский\n"
+                        + "Начата разработка 12.01.21\n",
+                "О программе", JOptionPane.INFORMATION_MESSAGE);
     }
 }

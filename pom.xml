@@ -41,6 +41,14 @@
             <version>1.18.20</version>
         </dependency>
 
+        <!-- https://github.com/cglib/cglib/wiki/How-To -->
+        <!-- https://mvnrepository.com/artifact/cglib/cglib -->
+        <!-- <dependency> -->
+        <!-- <groupId>cglib</groupId> -->
+        <!-- <artifactId>cglib-nodep</artifactId> -->
+        <!-- <version>3.3.0</version> -->
+        <!-- </dependency> -->
+
     </dependencies>
     <build>
         <sourceDirectory>src/main/java</sourceDirectory>
@@ -58,5 +66,10 @@
                 </configuration>
             </plugin>
         </plugins>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+            </resource>
+        </resources>
     </build>
 </project>
