@@ -141,7 +141,7 @@
               </grid>
               <grid id="78827" binding="Add" layout-manager="GridBagLayout">
                 <constraints>
-                  <tabbedpane title="Добавить"/>
+                  <tabbedpane title="Добавление"/>
                 </constraints>
                 <properties>
                   <enabled value="true"/>

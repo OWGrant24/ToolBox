@@ -1,6 +1,7 @@
 package com.grant.model;
 
 import com.grant.exception.ToolException;
+import com.grant.util.PathAddToListUtil;
 import com.grant.util.Functions;
 import com.grant.util.UtilRenamerImpl;
 import org.apache.commons.io.FileUtils;
@@ -22,6 +23,7 @@ import java.util.stream.Collectors;
 class RenameTest {
     protected Path pathTempDir;
     protected UtilRenamerImpl utilRenamerImpl;
+    protected PathAddToListUtil pathAddToListUtil;
 
     private void createFile(Path path) {
         try {
@@ -87,11 +89,11 @@ class RenameTest {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        utilRenamerImpl = new UtilRenamerImpl();
-        utilRenamerImpl.setMaxDepth(100);
+        utilRenamerImpl = new UtilRenamerImpl(pathAddToListUtil);
+        pathAddToListUtil.setMaxDepth(100);
         utilRenamerImpl.setTextSearch("666");
         utilRenamerImpl.setTextReplace("555");
-        utilRenamerImpl.setPath(pathTempDir);
+        pathAddToListUtil.setPath(pathTempDir);
     }
 
     @Test
