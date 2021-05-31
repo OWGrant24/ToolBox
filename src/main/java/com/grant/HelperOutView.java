@@ -5,7 +5,7 @@ import com.grant.view.View;
 
 import static com.grant.OutputWindow.consoleStringBuilder;
 
-public class HelperOutView { // Логирует свои действия в консоль
+public class HelperOutView { // Логирует свои действия в TextArea
     private final View view;
     private final PathAddToListUtil pathAddToListUtil;
 
@@ -14,8 +14,8 @@ public class HelperOutView { // Логирует свои действия в к
         this.pathAddToListUtil = pathAddToListUtil;
     }
 
-    public void logInConsole() {
-        view.getTextAreaConsole().setText(consoleStringBuilder.toString());
+    public void logInTextArea() {
+        view.getTextArea().setText(consoleStringBuilder.toString());
     }
 
     public void outputTextFieldPath() {

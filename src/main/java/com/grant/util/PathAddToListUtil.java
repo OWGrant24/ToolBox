@@ -46,6 +46,7 @@ public class PathAddToListUtil {
             });
             paths.removeIf(path1 -> path1.toString().equals(path.toString()));
             if (paths.isEmpty()) {
+                System.out.println(paths);
                 System.out.println(ANSI_GREEN + "Список файлов/директорий пуст" + ANSI_RESET);
                 return false;
             }
@@ -73,4 +74,28 @@ public class PathAddToListUtil {
         path = Path.of("");
         consoleStringBuilder.append("Отмена выбора произведена\n");
     }
+
+    public void clearList() {
+        paths.clear();
+        countDir = 0;
+        countFiles = 0;
+    }
+
+//    public void printFiles() {
+//        try {
+//            addInListFiles();
+//        } catch (ToolException e) {
+//            e.printStackTrace();
+//        }
+//        countFiles = paths.stream().filter(path -> path.toFile().isFile()).count();
+//        countDir = paths.stream().filter(path -> path.toFile().isDirectory()).count();
+//        if (countFiles > 0) {
+//            consoleStringBuilder.append("Список файлов");
+//            paths.stream().filter(path -> path.toFile().isFile()).forEach(p -> consoleStringBuilder.append(p).append("\n"));
+//        }
+//        if (countDir > 0) {
+//            consoleStringBuilder.append("Список директорий");
+//            paths.stream().filter(path -> path.toFile().isDirectory()).forEach(p -> consoleStringBuilder.append(p).append("\n"));
+//        }
+//    }
 }

@@ -12,7 +12,7 @@ import java.util.Objects;
 public class View extends JFrame {
     private JPanel mainPanel;
     private JPanel jpanel;
-    private JTextArea textAreaConsole;
+    private JTextArea textArea;
     private JButton buttonChoiceFolder;
     private JButton consoleClearButton;
     private JTextField textFieldSearch;
@@ -36,6 +36,10 @@ public class View extends JFrame {
     private JMenuBar jMenuBar;
     private JPanel Settings;
     private JSpinner depthSpinner;
+    private JRadioButton radioButtonExtension;
+    private JMenu toolsMenu;
+    private JMenuItem md5calcMenu;
+    private JMenuItem listFilesAndDirMenu;
 
     // Constructor
     public View(String title) {
@@ -90,6 +94,14 @@ public class View extends JFrame {
         JOptionPane.showMessageDialog(
                 this,
                 "В строке \"Заменить\" имеются недопустимые символы",
+                "Ошибка", JOptionPane.ERROR_MESSAGE
+        );
+    }
+
+    public void showMessageErrorSearch() {
+        JOptionPane.showMessageDialog(
+                this,
+                "Cтрока \"Найти\" пустая",
                 "Ошибка", JOptionPane.ERROR_MESSAGE
         );
     }
@@ -161,11 +173,11 @@ public class View extends JFrame {
         gbc.fill = GridBagConstraints.BOTH;
         gbc.insets = new Insets(0, 6, 0, 6);
         jpanel.add(scrollPane1, gbc);
-        textAreaConsole = new JTextArea();
-        textAreaConsole.setAutoscrolls(true);
-        textAreaConsole.setBackground(new Color(-1314561));
-        textAreaConsole.setEditable(false);
-        scrollPane1.setViewportView(textAreaConsole);
+        textArea = new JTextArea();
+        textArea.setAutoscrolls(true);
+        textArea.setBackground(new Color(-1314561));
+        textArea.setEditable(false);
+        scrollPane1.setViewportView(textArea);
         textFieldPath = new JTextField();
         textFieldPath.setEditable(false);
         textFieldPath.setPreferredSize(new Dimension(450, 30));
@@ -301,6 +313,22 @@ public class View extends JFrame {
         gbc.anchor = GridBagConstraints.WEST;
         gbc.insets = new Insets(6, 6, 6, 6);
         Settings.add(label7, gbc);
+        radioButtonExtension = new JRadioButton();
+        radioButtonExtension.setText("");
+        gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        gbc.anchor = GridBagConstraints.EAST;
+        gbc.insets = new Insets(6, 6, 6, 6);
+        Settings.add(radioButtonExtension, gbc);
+        final JLabel label8 = new JLabel();
+        label8.setText("Учитывая расширение файла");
+        gbc = new GridBagConstraints();
+        gbc.gridx = 1;
+        gbc.gridy = 1;
+        gbc.anchor = GridBagConstraints.WEST;
+        gbc.insets = new Insets(6, 6, 6, 6);
+        Settings.add(label8, gbc);
         processingButton = new JButton();
         processingButton.setText("Переименовать");
         gbc = new GridBagConstraints();
@@ -344,6 +372,19 @@ public class View extends JFrame {
         fileMenu.add(openDirMenuItem);
         exitMenuItem.setText("Выход");
         fileMenu.add(exitMenuItem);
+        toolsMenu = new JMenu();
+        toolsMenu.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+        toolsMenu.setEnabled(false);
+        toolsMenu.setText("Инструменты");
+        jMenuBar.add(toolsMenu);
+        md5calcMenu = new JMenuItem();
+        md5calcMenu.setLayout(new BorderLayout(0, 0));
+        md5calcMenu.setText("Расчёт MD5");
+        toolsMenu.add(md5calcMenu);
+        listFilesAndDirMenu = new JMenuItem();
+        listFilesAndDirMenu.setLayout(new BorderLayout(0, 0));
+        listFilesAndDirMenu.setText("Список файлов");
+        toolsMenu.add(listFilesAndDirMenu);
         referenceMenu = new JMenu();
         referenceMenu.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
         referenceMenu.setText("Справка");

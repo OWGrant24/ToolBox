@@ -32,7 +32,7 @@
             </properties>
             <border type="none"/>
             <children>
-              <component id="f209a" class="javax.swing.JTextArea" binding="textAreaConsole">
+              <component id="f209a" class="javax.swing.JTextArea" binding="textArea">
                 <constraints/>
                 <properties>
                   <autoscrolls value="true"/>
@@ -215,6 +215,24 @@
                       <text value="Глубина вложенности (По умолчанию = 1)"/>
                     </properties>
                   </component>
+                  <component id="616bd" class="javax.swing.JRadioButton" binding="radioButtonExtension">
+                    <constraints>
+                      <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
+                      <gridbag top="6" left="6" bottom="6" right="6" weightx="0.0" weighty="0.0"/>
+                    </constraints>
+                    <properties>
+                      <text value=""/>
+                    </properties>
+                  </component>
+                  <component id="bb792" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                      <gridbag top="6" left="6" bottom="6" right="6" weightx="0.0" weighty="0.0"/>
+                    </constraints>
+                    <properties>
+                      <text value="Учитывая расширение файла"/>
+                    </properties>
+                  </component>
                 </children>
               </grid>
             </children>
@@ -281,6 +299,32 @@
                 <constraints/>
                 <properties>
                   <text value="Выход"/>
+                </properties>
+                <border type="none"/>
+                <children/>
+              </grid>
+            </children>
+          </grid>
+          <grid id="3b9de" class="javax.swing.JMenu" binding="toolsMenu" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
+            <constraints/>
+            <properties>
+              <enabled value="false"/>
+              <text value="Инструменты"/>
+            </properties>
+            <border type="none"/>
+            <children>
+              <grid id="d8a5b" class="javax.swing.JMenuItem" binding="md5calcMenu" layout-manager="BorderLayout" hgap="0" vgap="0">
+                <constraints/>
+                <properties>
+                  <text value="Расчёт MD5"/>
+                </properties>
+                <border type="none"/>
+                <children/>
+              </grid>
+              <grid id="f19af" class="javax.swing.JMenuItem" binding="listFilesAndDirMenu" layout-manager="BorderLayout" hgap="0" vgap="0">
+                <constraints/>
+                <properties>
+                  <text value="Список файлов"/>
                 </properties>
                 <border type="none"/>
                 <children/>

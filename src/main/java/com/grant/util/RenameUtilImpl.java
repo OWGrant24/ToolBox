@@ -12,32 +12,31 @@ import static com.grant.OutputWindow.consoleStringBuilder;
 
 @Getter
 @Setter
-public class UtilRenamerImpl implements UtilRenamer { //12/01/21
+public class RenameUtilImpl implements RenameUtil { //12/01/21
+    private PathAddToListUtil pathAddToListUtil;
     private String textSearch;
     private String textReplace;
     private String textAdd;
     private long countProcessedFiles;
     private long countProcessedDir;
     private int numberInsert;
-    private PathAddToListUtil pathAddToListUtil;
+    private boolean useExtension;
 
     // Constructor
-    public UtilRenamerImpl(PathAddToListUtil pathAddToListUtil) {
+    public RenameUtilImpl(PathAddToListUtil pathAddToListUtil) {
         this.pathAddToListUtil = pathAddToListUtil;
     }
 
     @Override
-    public void resetTask() {
-        pathAddToListUtil.getPaths().clear();
-        pathAddToListUtil.setCountFiles(0);
-        pathAddToListUtil.setCountDir(0);
+    public void resetRename() {
+        pathAddToListUtil.clearList();
         countProcessedFiles = 0;
         countProcessedDir = 0;
     }
 
     @Override
-    public void startTask(Functions func) throws ToolException {
-        resetTask();
+    public void startRename(Functions func) throws ToolException {
+        resetRename();
         if (pathAddToListUtil.addInListFiles()) {
             rename(func);
         }
@@ -46,22 +45,20 @@ public class UtilRenamerImpl implements UtilRenamer { //12/01/21
         } else {
             consoleStringBuilder.append("Нет файлов/директорий подходящих под критерии\n");
         }
-
     }
-
 
     public void rename(Functions func) {
         switch (func) {
             case REPLACE:
-                renameObj(pathAddToListUtil.getPaths());
+                renamePathReplaceText(pathAddToListUtil.getPaths());
                 break;
             case ADD:
-                renameObjAdd(pathAddToListUtil.getPaths());
+                renamePathAddText(pathAddToListUtil.getPaths());
                 break;
         }
     }
 
-    private void renameObj(Collection<Path> paths) {
+    private void renamePathReplaceText(Collection<Path> paths) {
         for (Path value : paths) {
             if (value.getFileName().toString().contains(textSearch)) {
                 File file = value.toFile();
@@ -78,9 +75,9 @@ public class UtilRenamerImpl implements UtilRenamer { //12/01/21
         }
     }
 
-    private void renameObjAdd(Collection<Path> paths) {
+    private void renamePathAddText(Collection<Path> paths) {
         for (Path value : paths) {
-            File file = new File(value.toString());
+            File file = value.toFile();
             String newFileName = insertText(value);
             File fileResult;
             if (newFileName.startsWith(" ")) {
@@ -99,11 +96,22 @@ public class UtilRenamerImpl implements UtilRenamer { //12/01/21
         }
     }
 
-    private String replaceText(Path pathFile) {             // Замена текста
-        return pathFile.getFileName().toString().replace(textSearch, textReplace);
+    private String replaceText(Path pathFile) {                             // Замена текста
+        if (useExtension || pathFile.toFile().isDirectory()) {
+            return pathFile.getFileName().toString().replace(textSearch, textReplace);
+        } else {
+            String fileExtension = pathFile.getFileName().toString().substring(
+                    pathFile.getFileName().toString().lastIndexOf(".") + 1
+            );
+            String fileNameNotExtension = pathFile.getFileName().toString().substring(
+                    0, pathFile.getFileName().toString().lastIndexOf(".") + 1
+            );
+            String newFileNameNotExtension = fileNameNotExtension.replace(textSearch, textReplace);
+            return newFileNameNotExtension.concat(fileExtension);
+        }
     }
 
-    private String insertText(Path pathFile) {              // Добавление текста в заданную позицию
+    private String insertText(Path pathFile) {                              // Добавление текста в заданную позицию
         int lengthNameFile = pathFile.getFileName().toString().length();
         if (numberInsert >= lengthNameFile) {
             return new StringBuilder(pathFile.getFileName().toString()).insert(lengthNameFile, textAdd).toString();

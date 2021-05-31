@@ -1,18 +1,16 @@
 package com.grant.proxy;
 
-import com.grant.util.WorkingHours;
-
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 
+import static com.grant.OutputWindow.consoleStringBuilder;
+
 public class TimerProxyFactory implements InvocationHandler {
     private final Object target;
-    private final WorkingHours workingHours;
 
     public TimerProxyFactory(Object target) {
         this.target = target;
-        this.workingHours = new WorkingHours();
     }
 
     public Object createProxy() {
@@ -21,10 +19,14 @@ public class TimerProxyFactory implements InvocationHandler {
 
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-        workingHours.startTime();
+        long startTime = System.nanoTime();
         Object invoke = method.invoke(target, args);
-        workingHours.stopTime();
-        workingHours.durationTime();
+        long duration = (System.nanoTime()- startTime);
+        if (duration < 1_000_000_000) {
+            consoleStringBuilder.append("Процесс обработки занял: ").append(duration / 1_000_000).append(" мс.\n");
+        } else {
+            consoleStringBuilder.append("Процесс обработки занял: ").append(duration / 1_000_000_000).append(" с.\n");
+        }
         return invoke;
     }
 }

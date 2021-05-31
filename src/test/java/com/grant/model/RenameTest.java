@@ -3,7 +3,7 @@ package com.grant.model;
 import com.grant.exception.ToolException;
 import com.grant.util.PathAddToListUtil;
 import com.grant.util.Functions;
-import com.grant.util.UtilRenamerImpl;
+import com.grant.util.RenameUtilImpl;
 import org.apache.commons.io.FileUtils;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 
 class RenameTest {
     protected Path pathTempDir;
-    protected UtilRenamerImpl utilRenamerImpl;
+    protected RenameUtilImpl utilRenamerImpl;
     protected PathAddToListUtil pathAddToListUtil;
 
     private void createFile(Path path) {
@@ -89,17 +89,18 @@ class RenameTest {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        utilRenamerImpl = new UtilRenamerImpl(pathAddToListUtil);
+        utilRenamerImpl = new RenameUtilImpl(pathAddToListUtil);
         pathAddToListUtil.setMaxDepth(100);
         utilRenamerImpl.setTextSearch("666");
         utilRenamerImpl.setTextReplace("555");
         pathAddToListUtil.setPath(pathTempDir);
+        utilRenamerImpl.setUseExtension(true);
     }
 
     @Test
     void startTaskRename() throws ToolException {
         List<String> pathsOrig = addFiles(pathTempDir);
-        utilRenamerImpl.startTask(Functions.REPLACE);
+        utilRenamerImpl.startRename(Functions.REPLACE);
         List<String> pathsDone = addFiles(pathTempDir).stream()
                 .map(s -> s.replace("555", "666"))
                 .collect(Collectors.toList());
