@@ -43,6 +43,11 @@ public class PathAddToListUtil {
                     paths.add(file.toAbsolutePath());
                     return FileVisitResult.CONTINUE;
                 }
+
+                @Override
+                public FileVisitResult visitFileFailed(Path file, IOException exc) {
+                    return FileVisitResult.CONTINUE;
+                }
             });
             paths.removeIf(path1 -> path1.toString().equals(path.toString()));
             if (paths.isEmpty()) {
@@ -50,22 +55,9 @@ public class PathAddToListUtil {
                 System.out.println(ANSI_GREEN + "Список файлов/директорий пуст" + ANSI_RESET);
                 return false;
             }
-            // Записываем кол-во директорий / файлов в списке
-            countFiles = paths.stream().filter(path -> path.toFile().isFile()).count();
-            countDir = paths.stream().filter(path -> path.toFile().isDirectory()).count();
+            countingTheNumberOfDirectoriesAndFiles();
         } catch (Exception e) {
             throw new ToolException(e);
-        } finally {
-            // Это проверка
-            if (countFiles > 0) {
-                System.out.println(ANSI_GREEN + "Список файлов :" + ANSI_RESET);
-                paths.stream().filter(path -> path.toFile().isFile()).forEach(System.out::println);
-            }
-            if (countDir > 0) {
-                System.out.println(ANSI_GREEN + "Список директорий :" + ANSI_RESET);
-                paths.stream().filter(path -> path.toFile().isDirectory()).forEach(System.out::println);
-            }
-
         }
         return true;
     }
@@ -81,21 +73,32 @@ public class PathAddToListUtil {
         countFiles = 0;
     }
 
-//    public void printFiles() {
-//        try {
-//            addInListFiles();
-//        } catch (ToolException e) {
-//            e.printStackTrace();
-//        }
-//        countFiles = paths.stream().filter(path -> path.toFile().isFile()).count();
-//        countDir = paths.stream().filter(path -> path.toFile().isDirectory()).count();
-//        if (countFiles > 0) {
-//            consoleStringBuilder.append("Список файлов");
-//            paths.stream().filter(path -> path.toFile().isFile()).forEach(p -> consoleStringBuilder.append(p).append("\n"));
-//        }
-//        if (countDir > 0) {
-//            consoleStringBuilder.append("Список директорий");
-//            paths.stream().filter(path -> path.toFile().isDirectory()).forEach(p -> consoleStringBuilder.append(p).append("\n"));
-//        }
-//    }
+    public void printFiles() {
+        clearList();
+        try {
+            addInListFiles();
+        } catch (ToolException e) {
+            e.printStackTrace();
+        }
+        countingTheNumberOfDirectoriesAndFiles();
+        if (countFiles > 0) {
+            consoleStringBuilder.append("Список файлов\n");
+            paths.stream()
+                    .filter(path -> path.toFile().isFile())
+                    .forEach(p -> consoleStringBuilder.append(p).append("\n")
+                    );
+        }
+        if (countDir > 0) {
+            consoleStringBuilder.append("Список директорий\n");
+            paths.stream()
+                    .filter(path -> path.toFile().isDirectory())
+                    .forEach(p -> consoleStringBuilder.append(p).append("\n"));
+        }
+    }
+
+    // Записываем кол-во директорий / файлов в списке
+    private void countingTheNumberOfDirectoriesAndFiles() {
+        countFiles = paths.stream().filter(path -> path.toFile().isFile()).count();
+        countDir = paths.stream().filter(path -> path.toFile().isDirectory()).count();
+    }
 }

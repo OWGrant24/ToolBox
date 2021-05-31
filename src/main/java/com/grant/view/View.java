@@ -374,12 +374,13 @@ public class View extends JFrame {
         fileMenu.add(exitMenuItem);
         toolsMenu = new JMenu();
         toolsMenu.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-        toolsMenu.setEnabled(false);
+        toolsMenu.setEnabled(true);
         toolsMenu.setText("Инструменты");
         jMenuBar.add(toolsMenu);
         md5calcMenu = new JMenuItem();
         md5calcMenu.setLayout(new BorderLayout(0, 0));
         md5calcMenu.setText("Расчёт MD5");
+        md5calcMenu.setVisible(false);
         toolsMenu.add(md5calcMenu);
         listFilesAndDirMenu = new JMenuItem();
         listFilesAndDirMenu.setLayout(new BorderLayout(0, 0));

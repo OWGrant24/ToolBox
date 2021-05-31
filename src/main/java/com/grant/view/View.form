@@ -308,7 +308,7 @@
           <grid id="3b9de" class="javax.swing.JMenu" binding="toolsMenu" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
             <constraints/>
             <properties>
-              <enabled value="false"/>
+              <enabled value="true"/>
               <text value="Инструменты"/>
             </properties>
             <border type="none"/>
@@ -317,6 +317,7 @@
                 <constraints/>
                 <properties>
                   <text value="Расчёт MD5"/>
+                  <visible value="false"/>
                 </properties>
                 <border type="none"/>
                 <children/>

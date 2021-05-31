@@ -11,7 +11,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Path;
 
 import static com.grant.OutputWindow.consoleStringBuilder;
 
@@ -47,7 +46,7 @@ public class Controller {
         view.getProcessingButton().addActionListener(e -> {                                 // Процесс переименования
             if (view.getTabbedPane().getSelectedIndex() == 0) {
                 try {
-                    processing();
+                    processingReplace();
                 } catch (ToolException toolException) {
                     toolException.printStackTrace();
                 } finally {
@@ -88,12 +87,14 @@ public class Controller {
         view.getExitMenuItem().addActionListener(e -> System.exit(0));                      // Выход из программы
 
         // Инструменты (новый раздел)
-//        view.getListFilesAndDirMenu().addActionListener(e -> {
-//            pathAddToListUtil.printFiles();
-//        });
+        view.getListFilesAndDirMenu().addActionListener(e -> {
+            pathAddToListUtil.setMaxDepth((Integer) view.getDepthSpinner().getValue());
+            pathAddToListUtil.printFiles();
+            helperOutView.logInTextArea();
+        });
     }
 
-    public void processing() throws ToolException {             // Запуск пакетного переименования
+    public void processingReplace() throws ToolException {             // Запуск пакетного переименования
         if (checkingError(view.getTextFieldReplace().getText(), Functions.REPLACE)) {
             generateText();
             RenameUtil timerProxyRenameUtil = (RenameUtil) new TimerProxyFactory(utilRenamerImpl).createProxy();
